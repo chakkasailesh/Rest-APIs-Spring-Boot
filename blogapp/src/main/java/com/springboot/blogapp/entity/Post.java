@@ -1,5 +1,7 @@
 package com.springboot.blogapp.entity;
 
+import com.springboot.blogapp.dto.PostDTO;
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "posts", uniqueConstraints = { @UniqueConstraint(columnNames = { "title" }) })
 public class Post {
@@ -27,4 +28,13 @@ public class Post {
 	private String description;
 	@Nonnull
 	private String content;
+
+	public static Post createPostEntity(PostDTO postDTO) {
+		Post post = new Post();
+		post.setId(postDTO.getId());
+		post.setTitle(postDTO.getTitle());
+		post.setContent(postDTO.getContent());
+		post.setDescription(postDTO.getDescription());
+		return post;
+	}
 }
