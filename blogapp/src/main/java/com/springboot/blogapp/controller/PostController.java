@@ -19,7 +19,7 @@ import com.springboot.blogapp.dto.PostDTO;
 import com.springboot.blogapp.service.PostService;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/posts")
 public class PostController {
 
 	@Autowired

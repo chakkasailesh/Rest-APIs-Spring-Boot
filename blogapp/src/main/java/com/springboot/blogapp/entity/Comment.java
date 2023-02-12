@@ -1,7 +1,5 @@
 package com.springboot.blogapp.entity;
 
-import com.springboot.blogapp.dto.CommentDTO;
-
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -33,12 +31,4 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id", nullable = false)
 	private Post post;
-
-	public static Comment createCommentEntity(CommentDTO commentDTO) {
-		Comment comment = new Comment();
-		comment.setName(commentDTO.getName());
-		comment.setEmail(commentDTO.getEmail());
-		comment.setBody(commentDTO.getBody());
-		return comment;
-	}
 }

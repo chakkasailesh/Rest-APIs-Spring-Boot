@@ -1,5 +1,8 @@
 package com.springboot.blogapp.dto;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.springboot.blogapp.entity.Post;
 
 import lombok.Data;
@@ -10,6 +13,7 @@ public class PostDTO {
 	private String title;
 	private String description;
 	private String content;
+	private List<CommentDTO> comments = new LinkedList<>();
 
 	public static PostDTO createPostDTO(Post post) {
 		PostDTO postDTO = new PostDTO();

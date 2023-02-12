@@ -3,8 +3,6 @@ package com.springboot.blogapp.entity;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.springboot.blogapp.dto.PostDTO;
-
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -35,13 +33,4 @@ public class Post {
 	private String content;
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments = new LinkedList<>();
-
-	public static Post createPostEntity(PostDTO postDTO) {
-		Post post = new Post();
-		post.setId(postDTO.getId());
-		post.setTitle(postDTO.getTitle());
-		post.setContent(postDTO.getContent());
-		post.setDescription(postDTO.getDescription());
-		return post;
-	}
 }
