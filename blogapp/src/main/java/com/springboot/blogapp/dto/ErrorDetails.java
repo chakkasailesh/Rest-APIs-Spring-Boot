@@ -1,4 +1,4 @@
-package com.springboot.blogapp.utils;
+package com.springboot.blogapp.dto;
 
 import java.util.Date;
 
