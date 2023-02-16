@@ -9,16 +9,26 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.springboot.blogapp.security.JWTAuthenticationEntrypoint;
+import com.springboot.blogapp.security.JWTAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+//	@Autowired
+//	private UserDetailsService uerDetailsService;
+
 	@Autowired
-	private UserDetailsService uerDetailsService;
+	private JWTAuthenticationEntrypoint jwtAuthenticationEntrypoint;
+
+	@Autowired
+	private JWTAuthenticationFilter jwtAuthenticationFilter;
 
 	@Bean
 	AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -35,7 +45,10 @@ public class SecurityConfig {
 		http.csrf().disable()
 				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/auth/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/api/**").permitAll().anyRequest().authenticated())
-				.httpBasic(Customizer.withDefaults());
+				.httpBasic(Customizer.withDefaults())
+				.exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntrypoint))
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 

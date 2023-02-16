@@ -45,6 +45,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				HttpStatus.UNAUTHORIZED);
 	}
 
+	@ExceptionHandler(JWTException.class)
+	public ResponseEntity<ErrorDetails> handleJWTExcepion(JWTException exception, WebRequest webRequest) {
+		return new ResponseEntity<>(
+				new ErrorDetails(new Date(), exception.getMessage(), webRequest.getDescription(false)),
+				HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorDetails> handleGlobalExcepion(Exception exception, WebRequest webRequest) {
 		return new ResponseEntity<>(

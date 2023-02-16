@@ -18,6 +18,7 @@ import com.springboot.blogapp.entity.User;
 import com.springboot.blogapp.exception.UserNameOrEmailExistsException;
 import com.springboot.blogapp.repository.RoleRepository;
 import com.springboot.blogapp.repository.UserRepository;
+import com.springboot.blogapp.security.JWTTokenProvider;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -34,12 +35,16 @@ public class AuthServiceImpl implements AuthService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private JWTTokenProvider jwtTokenProvider;
+
 	@Override
 	public String login(LoginDTO loginDTO) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginDTO.getUserNameOrEmail(), loginDTO.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return "User logged in successfully";
+		String token = jwtTokenProvider.generateToken(authentication);
+		return token;
 	}
 
 	@Override
