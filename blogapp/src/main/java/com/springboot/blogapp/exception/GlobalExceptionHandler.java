@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,6 +29,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(UserNameOrEmailExistsException.class)
+	public ResponseEntity<ErrorDetails> handleUserNameOrEmailExistsExcepion(UserNameOrEmailExistsException exception,
+			WebRequest webRequest) {
+		return new ResponseEntity<>(
+				new ErrorDetails(new Date(), exception.getMessage(), webRequest.getDescription(false)),
+				HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(AccessDeniedException.class)
 	public ResponseEntity<ErrorDetails> handleAccessDeniedExcepion(AccessDeniedException exception,
 			WebRequest webRequest) {
@@ -41,6 +50,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(
 				new ErrorDetails(new Date(), exception.getMessage(), webRequest.getDescription(false)),
 				HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@ExceptionHandler(UsernameNotFoundException.class)
+	public ResponseEntity<ErrorDetails> handleUsernameNotFoundExcepion(UsernameNotFoundException exception,
+			WebRequest webRequest) {
+		return new ResponseEntity<>(
+				new ErrorDetails(new Date(), exception.getMessage(), webRequest.getDescription(false)),
+				HttpStatus.UNAUTHORIZED);
 	}
 
 	@Override
