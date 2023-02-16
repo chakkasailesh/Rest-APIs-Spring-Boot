@@ -13,7 +13,7 @@ import com.springboot.blogapp.dto.RegisterDTO;
 import com.springboot.blogapp.service.AuthService;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 	@Autowired
 	private AuthService authService;

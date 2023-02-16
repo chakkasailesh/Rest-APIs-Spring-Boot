@@ -22,7 +22,7 @@ import com.springboot.blogapp.service.PostService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/api/posts")
 public class PostController {
 
 	@Autowired
