@@ -3,7 +3,6 @@ package com.springboot.blogapp.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -41,9 +40,9 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/auth/**").permitAll()
-						.requestMatchers(HttpMethod.GET, "/api/**").permitAll().anyRequest().authenticated())
+		http.csrf().disable().authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/auth/**").permitAll()
+//						.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+				.anyRequest().authenticated())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntrypoint))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
