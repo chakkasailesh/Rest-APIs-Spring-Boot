@@ -3,8 +3,6 @@ package com.springboot.blogapp.dto;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.springboot.blogapp.entity.Post;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -22,13 +20,5 @@ public class PostDTO {
 	@Size(min = 5, message = "Post content should have minimum length 10")
 	private String content;
 	private List<CommentDTO> comments = new LinkedList<>();
-
-	public static PostDTO createPostDTO(Post post) {
-		PostDTO postDTO = new PostDTO();
-		postDTO.setId(post.getId());
-		postDTO.setContent(post.getContent());
-		postDTO.setTitle(post.getTitle());
-		postDTO.setDescription(post.getDescription());
-		return postDTO;
-	}
+	private long categoryId;
 }
