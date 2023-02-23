@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.blogapp.dto.CategoryDTO;
+import com.springboot.blogapp.dto.PostDTO;
 import com.springboot.blogapp.entity.Category;
 import com.springboot.blogapp.exception.ResourceNotFoundException;
 import com.springboot.blogapp.repository.CategoryRepository;
@@ -56,11 +57,12 @@ public class CategoryServiceImpl implements CategoryService {
 		return "Category deleted successfully";
 	}
 
-//	@Override
-//	public List<PostDTO> getPostsByCategory(long categoryId) {
-//		Category category = categoryRepository.findById(categoryId)
-//				.orElseThrow(() -> new ResourceNotFoundException("Category", "Id", String.valueOf(categoryId)));
-//		System.out.println(category);
-//		return category.getPosts().stream().map(post -> modelMapper.map(post, PostDTO.class)).toList();
-//	}
+	@Override
+	public List<PostDTO> getPostsByCategory(long categoryId) {
+		Category category = categoryRepository.findById(categoryId)
+				.orElseThrow(() -> new ResourceNotFoundException("Category", "Id", String.valueOf(categoryId)));
+		CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
+		System.out.println(categoryDTO);
+		return categoryDTO.getPosts();
+	}
 }

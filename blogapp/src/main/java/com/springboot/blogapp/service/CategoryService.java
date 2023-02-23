@@ -3,6 +3,7 @@ package com.springboot.blogapp.service;
 import java.util.List;
 
 import com.springboot.blogapp.dto.CategoryDTO;
+import com.springboot.blogapp.dto.PostDTO;
 
 public interface CategoryService {
 	CategoryDTO addCategory(CategoryDTO categoryDTO);
@@ -15,5 +16,5 @@ public interface CategoryService {
 
 	String deleteCategory(long categoryId);
 
-//	List<PostDTO> getPostsByCategory(long categoryId);
+	List<PostDTO> getPostsByCategory(long categoryId);
 }

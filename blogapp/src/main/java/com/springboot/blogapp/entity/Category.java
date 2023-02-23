@@ -1,6 +1,6 @@
 package com.springboot.blogapp.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,5 +25,5 @@ public class Category {
 	private String name;
 	private String description;
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Post> posts;
+	private List<Post> posts;
 }

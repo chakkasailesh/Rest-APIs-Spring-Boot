@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.blogapp.dto.CategoryDTO;
+import com.springboot.blogapp.dto.PostDTO;
 import com.springboot.blogapp.service.CategoryService;
 
 @RestController()
@@ -34,10 +35,10 @@ public class CategoryController {
 		return ResponseEntity.ok(categoryService.getAllCategories());
 	}
 
-//	@GetMapping("/{categoryId}/posts")
-//	public ResponseEntity<List<PostDTO>> getPostsByCategory(@PathVariable long categoryId) {
-//		return ResponseEntity.ok(categoryService.getPostsByCategory(categoryId));
-//	}
+	@GetMapping("/{categoryId}/posts")
+	public ResponseEntity<List<PostDTO>> getPostsByCategory(@PathVariable long categoryId) {
+		return ResponseEntity.ok(categoryService.getPostsByCategory(categoryId));
+	}
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
