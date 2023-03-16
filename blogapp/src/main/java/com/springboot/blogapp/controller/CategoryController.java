@@ -19,6 +19,9 @@ import com.springboot.blogapp.dto.CategoryDTO;
 import com.springboot.blogapp.dto.PostDTO;
 import com.springboot.blogapp.service.CategoryService;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @RestController()
 @RequestMapping("/api/categories")
 public class CategoryController {
@@ -27,6 +30,7 @@ public class CategoryController {
 
 	@GetMapping("/{categoryId}")
 	public ResponseEntity<CategoryDTO> getCategory(@PathVariable long categoryId) {
+		log.debug("getting category with ID : {}", categoryId);
 		return ResponseEntity.ok(categoryService.getCategory(categoryId));
 	}
 
