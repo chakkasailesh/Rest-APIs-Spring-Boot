@@ -43,7 +43,7 @@ public class SecurityConfig {
 		http.csrf().disable()
 				.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/auth/**").permitAll()
 						.requestMatchers("/v3/api-docs/**").permitAll().requestMatchers("/swagger-ui.html").permitAll()
-						.requestMatchers("/swagger-ui/**").permitAll()
+						.requestMatchers("/swagger-ui/**").permitAll().requestMatchers("/actuator/**").permitAll()
 //						.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
 						.anyRequest().authenticated())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntrypoint))
